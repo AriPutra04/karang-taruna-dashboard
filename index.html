@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Karang Taruna RW 06</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body { margin: 0; font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; }
+    header { background-color: #ae0909; color: white; padding: 1em 2em; }
+    .header-container { display: flex; align-items: center; justify-content: center; gap: 10px; }
+    .logo { width: 80px; height: auto; }
+    .container { display: flex; }
+    nav { background-color: #fcfbf9; width: 220px; height: 100vh; padding: 1em; position: fixed; top: 113px; left: 0; }
+    nav h3 { margin-top: 0; font-size: 20px; color: #002b5c; }
+    nav ul { list-style: none; padding: 0; }
+    nav ul li { margin: 1em 0; }
+    nav ul li a { text-decoration: none; color: #002b5c; font-weight: bold; cursor: pointer; }
+    nav ul li a i { margin-right: 8px; }
+    main { margin-left: 240px; padding: 2em; flex-grow: 1; }
+    .card { background: white; padding: 1em; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 1em; }
+    input, textarea, button { width: 100%; padding: 10px; margin-top: 10px; font-size: 1em; border: 1px solid #ccc; border-radius: 5px; }
+    button { background-color: #002b5c; color: white; cursor: pointer; }
+    .fade { opacity: 0; transition: opacity 0.4s ease; }
+    .fade.show { opacity: 1; }
+    table { width: 100%; text-align: center; border-collapse: collapse; }
+    table, th, td { border: 1px solid #ddd; }
+    thead { background-color: #ffc107; color: #002b5c; }
+    th, td { padding: 10px; }
+    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+    .gallery img { width: 100%; border-radius: 8px; transition: transform 0.3s ease, opacity 0.3s ease; opacity: 0.9; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .gallery img:hover { transform: scale(1.05); opacity: 1; }
+    #loginPage { display: flex; height: 100vh; align-items: center; justify-content: center; background-color: #e0e0e0; }
+    #loginFormContainer { background: white; padding: 2em; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); width: 300px; }
+    #loginFormContainer h2 { text-align: center; color: #002b5c; }
+    #loginError { color: red; font-size: 0.9em; text-align: center; display: none; }
+  </style>
+</head>
+<body>
+  <div id="loginPage">
+    <div id="loginFormContainer">
+      <h2>Login Admin</h2>
+      <form id="loginForm">
+        <label>Username:</label>
+        <input type="text" id="username" required />
+        <label>Password:</label>
+        <input type="password" id="password" required />
+        <button type="submit">Masuk</button>
+        <p id="loginError">Username atau password salah!</p>
+      </form>
+    </div>
+  </div>
+  <div id="mainContent" style="display: none;">
+    <header><div class="header-container"><img src="#" alt="Logo Kiri" class="logo" /><h1>KARANG TARUNA GENTRA ENDAH RW.06</h1><img src="#" alt="Logo Kanan" class="logo" /></div></header>
+    <div class="container">
+      <nav>
+        <h3>Menu</h3>
+        <ul>
+          <li><a onclick="tampilkanHalaman('profil')"><i class="fas fa-id-card"></i> Profil</a></li>
+          <li><a onclick="tampilkanHalaman('anggota')"><i class="fas fa-users"></i> Anggota</a></li>
+          <li><a onclick="tampilkanHalaman('kegiatan')"><i class="fas fa-calendar-plus"></i> Kegiatan</a></li>
+          <li><a onclick="tampilkanHalaman('laporan')"><i class="fas fa-file-alt"></i> Laporan</a></li>
+          <li><a onclick="tampilkanHalaman('pengaturan')"><i class="fas fa-cog"></i> Pengaturan</a></li>
+          <li><a onclick="cetakPDF()"><i class="fas fa-print"></i> Cetak PDF</a></li>
+        </ul>
+      </nav>
+      <main id="kontenUtama" class="fade show"></main>
+    </div>
+  </div>
+  <script>
+    let dataKegiatan = [];
+    function tampilkanHalaman(halaman) {
+      const konten = document.getElementById('kontenUtama');
+      konten.classList.remove('show');
+      konten.classList.add('fade');
+      setTimeout(() => {
+        if (halaman === 'profil') {
+          konten.innerHTML = '<div class="card"><h2>Profil Karang Taruna Gentra Endah RW.06</h2><p><strong>Nama:</strong> Karang Taruna Gentra Endah RW.06</p><p><strong>Alamat:</strong> Jl.SituSipatahunan RW06 Kec.Baleendah Kel.Baleendah Kab.Bandung</p><p><strong>Visi:</strong> Mewujudkan pemuda yang aktif, kreatif dan peduli lingkungan.</p><ul><li>Mendorong keterlibatan pemuda dalam kegiatan sosial.</li><li>Menyelenggarakan pelatihan dan pemberdayaan.</li><li>Menumbuhkan semangat gotong royong.</li></ul></div>';
+        } else if (halaman === 'anggota') {
+          konten.innerHTML = '<div class="card"><h2>Struktur Kepengurusan Karang Taruna</h2><table><thead><tr><th>Ketua</th><th>Sekretaris</th><th>Bendahara</th><th>Div. Pendidikan</th><th>Div. Rohani</th><th>Div. Olahraga</th><th>Div. Kesenian</th><th>Div. Keamanan</th></tr></thead><tbody><tr><td>Pandu Baehari Fauzan</td><td>Salwa Khaerunisa</td><td>Suci Rahayu</td><td>Arya Putra D</td><td>Raihani Pratiwi</td><td>Fadly Nur Ramdhan</td><td>Sabrila Putri</td><td>Pradit Pradipa</td></tr></tbody></table></div>';
+        } else if (halaman === 'kegiatan') {
+          konten.innerHTML = '<div class="card"><h2>Form Tambah Kegiatan</h2><form id="formKegiatan"><label>Nama Kegiatan:</label><input type="text" id="namaKegiatan" required /><label>Tanggal:</label><input type="date" id="tanggalKegiatan" required /><label>Deskripsi:</label><textarea rows="4" id="deskripsiKegiatan" required></textarea><button type="submit">Simpan Kegiatan</button></form></div>';
+          document.getElementById('formKegiatan').onsubmit = function (e) {
+            e.preventDefault();
+            const nama = document.getElementById('namaKegiatan').value;
+            const tanggal = document.getElementById('tanggalKegiatan').value;
+            const deskripsi = document.getElementById('deskripsiKegiatan').value;
+            dataKegiatan.push({ nama, tanggal, deskripsi });
+            alert("Kegiatan berhasil ditambahkan!");
+            document.getElementById('formKegiatan').reset();
+          };
+        } else if (halaman === 'laporan') {
+          let laporanHTML = '<div class="card"><h2>Laporan Kegiatan</h2><ul>';
+          if (dataKegiatan.length === 0) laporanHTML += '<li>Tidak ada kegiatan yang tercatat.</li>';
+          else dataKegiatan.forEach(item => { laporanHTML += `<li>📅 ${item.tanggal} - ${item.nama}<br><small>${item.deskripsi}</small></li>`; });
+          laporanHTML += '</ul></div>';
+          konten.innerHTML = laporanHTML;
+        } else if (halaman === 'pengaturan') {
+          konten.innerHTML = '<div class="card"><h2>Pengaturan Akun</h2><form onsubmit="event.preventDefault(); alert('Pengaturan disimpan!');"><label>Nama Pengguna:</label><input type="text" value="admin" /><label>Kata Sandi:</label><input type="password" value="******" /><button type="submit">Simpan Perubahan</button></form></div>';
+        }
+        setTimeout(() => { konten.classList.add('show'); }, 50);
+      }, 300);
+    }
+    function cetakPDF() { window.print(); }
+    document.getElementById('loginForm').onsubmit = function (e) {
+      e.preventDefault();
+      const user = document.getElementById('username').value;
+      const pass = document.getElementById('password').value;
+      if (user === 'admin' && pass === 'admin123') {
+        document.getElementById('loginPage').style.display = 'none';
+        document.getElementById('mainContent').style.display = 'block';
+        tampilkanHalaman('profil');
+      } else {
+        document.getElementById('loginError').style.display = 'block';
+      }
+    };
+  </script>
+</body>
+</html>
